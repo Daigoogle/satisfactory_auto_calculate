@@ -1,0 +1,1 @@
+# Satisfactoryでの素材計算に使用するExcelVBA
