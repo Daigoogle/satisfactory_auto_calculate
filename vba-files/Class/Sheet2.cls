@@ -9,19 +9,6 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
 
-Type Recipe ' レシピを記憶する。
-    product As String
-    material(4) As String
-    material_num(4) As Single
-    product_num As Single
-    product_rate As Single
-End Type
-
-Type Material
-    name As String
-    num As Single
-End Type
-
 Public Sub Update_Cells()
     Dim i As Byte, j As Integer, nRows As Integer
     Dim SidelineNames() As String, SidelineNum() As Single ' 余剰素材・副産物
