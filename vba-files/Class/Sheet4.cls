@@ -9,79 +9,30 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
 
-Function HideIf(value As Variant, condition As Variant) As Variant
-    Dim cond As String
-    Dim num As Double
-    Dim op As String
-    Dim testString As String
+' 文字列を検索して行番号を返す関数
+Function StrToNo(str As String) As Integer
+    Dim i As Byte
+    Dim n As Integer
+    Dim v_in As Variant
 
-    '条件を文字列化
-    cond = CStr(condition)
-    
-    '------------------------------------
-    ' 1. 数値の直接比較（例: 0, 10, -1）
-    '------------------------------------
-    If IsNumeric(cond) Then
-        If IsNumeric(value) Then
-            If CDbl(value) = CDbl(cond) Then
-                HideIf = ""
-                Exit Function
-            End If
-        End If
-        
-        '一致しない → 値を返して終了
-        HideIf = value
-        Exit Function
-    End If
-    
-    '------------------------------------
-    ' 2. 比較式（<=0, >=10 等）
-    '------------------------------------
-    'パターン判定: >, <, >=, <=
-    If cond Like "[<>]*" Then
-        '演算子判別
-        If Left(cond, 2) = ">=" Or Left(cond, 2) = "<=" Then
-            op = Left(cond, 2)
-            num = CDbl(Mid(cond, 3))
-        Else
-            op = Left(cond, 1)
-            num = CDbl(Mid(cond, 2))
-        End If
-        
-        If IsNumeric(value) Then
-            Select Case op
-                Case "="
-                    If CDbl(value) = num Then HideIf = "" Else HideIf = value
-                Case ">"
-                    If CDbl(value) > num Then HideIf = "" Else HideIf = value
-                Case "<"
-                    If CDbl(value) < num Then HideIf = "" Else HideIf = value
-                Case ">="
-                    If CDbl(value) >= num Then HideIf = "" Else HideIf = value
-                Case "<="
-                    If CDbl(value) <= num Then HideIf = "" Else HideIf = value
-            End Select
-            Exit Function
-        End If
-    End If
+    ' 初期化
+    n = 0
+    ' E1:E200の範囲をバリアント配列に取得
+    v_in = Range("E1:E200")
 
-    '------------------------------------
-    ' 3. 文字列一致 or ワイルドカード一致
-    '------------------------------------
-    testString = CStr(value)
+    ' 文字列を検索（1から200まで）
+    For i = 1 To 200
+        If v_in(i, 1) = str Then
+            n = i
+            Exit For
+        End If
+    Next i
     
-    '完全一致
-    If testString = cond Then
-        HideIf = ""
-        Exit Function
-    End If
-    
-    'ワイルドカード一致 (*abc*, abc?, etc)
-    If testString Like cond Then
-        HideIf = ""
-        Exit Function
-    End If
+    StrToNo = n
+End Function
 
-    '非該当 → そのまま返す
-    HideIf = value
+' 行番号を指定して文字列を返す関数
+Function NoToStr(n As Integer) As String
+    ' E列のn行目の値を取得
+    NoToStr = Cells(n + 1, 5).Value
 End Function

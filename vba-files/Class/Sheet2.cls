@@ -47,8 +47,3 @@ Public Sub Update_Cells()
     Loop
     
 End Sub
-
-Function IsBaseMaterial() As Boolean
-    
-End Function
-

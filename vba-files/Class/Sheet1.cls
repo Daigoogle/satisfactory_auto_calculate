@@ -8,3 +8,31 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
+
+Function GetMaterialList() As Variant
+    Dim i As Byte
+    Dim v_in As Variant
+    Dim out() As Variant
+    
+    ' C3:D11の範囲をバリアント配列に取得
+    v_in = Range("C3:D11")
+    
+    ' 空白行までのカウント（最大9行）
+    For i = 1 To 9
+        ' VBA では Or を使用（|| は不可）
+        If v_in(i, 1) = "" Or v_in(i, 2) = "" Then
+            Exit For
+        End If
+    Next i
+    
+    ' 有効なデータ行数に合わせて配列をリサイズ
+    ReDim out(1 To i - 1, 1 To 2)
+    
+    ' データを新しい配列にコピー（.Value は不要）
+    For i = 1 To UBound(out, 1)
+        out(i, 1) = v_in(i, 1)
+        out(i, 2) = v_in(i, 2)
+    Next i
+    
+    GetMaterialList = out()
+End Function

@@ -9,6 +9,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
 
+' アイテムメニューの型定義
 Type ItemMenu
     ItemNo As Integer
     Base1No As Integer
