@@ -9,29 +9,29 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
 
-Function GetMaterialList() As Variant
+Function GetMaterialList() As Material()
     Dim i As Byte
     Dim v_in As Variant
-    Dim out() As Variant
+    Dim out() As Material
     
-    ' C3:D11ã®ç¯„å›²ã‚’ãƒãƒªã‚¢ãƒ³ãƒˆé…åˆ—ã«å–å¾—
+    ' C3:D11‚Ì”ÍˆÍ‚ğƒoƒŠƒAƒ“ƒg”z—ñ‚Éæ“¾
     v_in = Range("C3:D11")
     
-    ' ç©ºç™½è¡Œã¾ã§ã®ã‚«ã‚¦ãƒ³ãƒˆï¼ˆæœ€å¤§9è¡Œï¼‰
+    ' ‹ó”’s‚Ü‚Å‚ÌƒJƒEƒ“ƒgiÅ‘å9sj
     For i = 1 To 9
-        ' VBA ã§ã¯ Or ã‚’ä½¿ç”¨ï¼ˆ|| ã¯ä¸å¯ï¼‰
+        ' VBA ‚Å‚Í Or ‚ğg—pi|| ‚Í•s‰Âj
         If v_in(i, 1) = "" Or v_in(i, 2) = "" Then
             Exit For
         End If
     Next i
     
-    ' æœ‰åŠ¹ãªãƒ‡ãƒ¼ã‚¿è¡Œæ•°ã«åˆã‚ã›ã¦é…åˆ—ã‚’ãƒªã‚µã‚¤ã‚º
-    ReDim out(1 To i - 1, 1 To 2)
+    ' —LŒø‚Èƒf[ƒ^s”‚É‡‚í‚¹‚Ä”z—ñ‚ğƒŠƒTƒCƒY
+    ReDim out(1 To i - 1)
     
-    ' ãƒ‡ãƒ¼ã‚¿ã‚’æ–°ã—ã„é…åˆ—ã«ã‚³ãƒ”ãƒ¼ï¼ˆ.Value ã¯ä¸è¦ï¼‰
+    ' ƒf[ƒ^‚ğV‚µ‚¢”z—ñ‚ÉƒRƒs[i.Value ‚Í•s—vj
     For i = 1 To UBound(out, 1)
-        out(i, 1) = v_in(i, 1)
-        out(i, 2) = v_in(i, 2)
+        out(i).Name = v_in(i, 1)
+        out(i).Num = v_in(i, 2)
     Next i
     
     GetMaterialList = out()

@@ -9,18 +9,18 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
 
-' æ–‡å­—åˆ—ã‚’æ¤œç´¢ã—ã¦è¡Œç•ªå·ã‚’è¿”ã™é–¢æ•°
+' •¶š—ñ‚ğŒŸõ‚µ‚Äs”Ô†‚ğ•Ô‚·ŠÖ”
 Function StrToNo(str As String) As Integer
     Dim i As Byte
     Dim n As Integer
     Dim v_in As Variant
 
-    ' åˆæœŸåŒ–
+    ' ‰Šú‰»
     n = 0
-    ' E1:E200ã®ç¯„å›²ã‚’ãƒãƒªã‚¢ãƒ³ãƒˆé…åˆ—ã«å–å¾—
+    ' E1:E200‚Ì”ÍˆÍ‚ğƒoƒŠƒAƒ“ƒg”z—ñ‚Éæ“¾
     v_in = Range("E1:E200")
 
-    ' æ–‡å­—åˆ—ã‚’æ¤œç´¢ï¼ˆ1ã‹ã‚‰200ã¾ã§ï¼‰
+    ' •¶š—ñ‚ğŒŸõi1‚©‚ç200‚Ü‚Åj
     For i = 1 To 200
         If v_in(i, 1) = str Then
             n = i
@@ -31,8 +31,8 @@ Function StrToNo(str As String) As Integer
     StrToNo = n
 End Function
 
-' è¡Œç•ªå·ã‚’æŒ‡å®šã—ã¦æ–‡å­—åˆ—ã‚’è¿”ã™é–¢æ•°
+' s”Ô†‚ğw’è‚µ‚Ä•¶š—ñ‚ğ•Ô‚·ŠÖ”
 Function NoToStr(n As Integer) As String
-    ' Eåˆ—ã®nè¡Œç›®ã®å€¤ã‚’å–å¾—
+    ' E—ñ‚Ìns–Ú‚Ì’l‚ğæ“¾
     NoToStr = Cells(n + 1, 5).Value
 End Function
