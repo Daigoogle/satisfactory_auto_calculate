@@ -9,10 +9,16 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
 Option Explicit
 
-Function GetMaterialList() As Material()
+' セル内容リセット
+Function CellsReset()
+    Range("L3:M100").ClearContents
+End Function
+
+' 素材リスト取得関数
+Function GetMaterialList() As MaterialPack()
     Dim i As Byte
     Dim v_in As Variant
-    Dim out() As Material
+    Dim out() As MaterialPack
     
     ' C3:D11の範囲をバリアント配列に取得
     v_in = Range("C3:D11")
@@ -30,9 +36,18 @@ Function GetMaterialList() As Material()
     
     ' データを新しい配列にコピー（.Value は不要）
     For i = 1 To UBound(out, 1)
-        out(i).Name = v_in(i, 1)
+        out(i).NameID = Sheet4.StrToNo(v_in(i, 1))
         out(i).Num = v_in(i, 2)
     Next i
     
     GetMaterialList = out()
+End Function
+
+' 副産物出力関数
+Function PutSidelines(sideline As Variant)
+    Dim i As Integer
+    For i = LBound(sideline, 1) To UBound(sideline, 1)
+        Cells(i + 2, 12).value = Sheet4.NoToStr(CInt(sideline(i, 1)))
+        Cells(i + 2, 13).value = sideline(i, 2)
+    Next i
 End Function

@@ -4,23 +4,17 @@ Option Explicit
 ' アイテムメニューの型定義
 Type ItemMenu
     ItemNo As Integer
-    Base1No As Integer
-    Base2No As Integer
-    Base3No As Integer
-    Base4No As Integer
+    BaseNo(1 To 4) As Integer
     SidelineNo As Integer
-    Base1Num As Integer
-    Base2Num As Integer
-    Base3Num As Integer
-    Base4Num As Integer
+    BaseNum(1 To 4) As Integer
     SidelineNum As Integer
     OutputNum As Integer
     Rate As Single
 End Type
 
 ' 素材名と製造数のセット
-Type Material
-    Name As String
+Type MaterialPack
+    NameID As Integer
     Num As Single
 End Type
 
@@ -151,4 +145,15 @@ Private Function EvaluateCondition(value As Variant, cond As Variant) As Boolean
     ' 最後の fallback
     '--------------------------------------
     EvaluateCondition = False
+End Function
+
+Function RoundUp(ByVal value As Single, Optional ByVal digits As Long = 0) As Single
+    Dim factor As Single
+    factor = 10 ^ digits
+    
+    If value >= 0 Then
+        RoundUp = -Int(-value * factor) / factor
+    Else
+        RoundUp = Int(value * factor) / factor
+    End If
 End Function
